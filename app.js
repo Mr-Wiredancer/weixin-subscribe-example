@@ -33,15 +33,16 @@ app.post('/weixintest', function(req, res){
   var body = '';
   var count = 0;
   req.on('data', function (data) {
-    body = body+data;
-    console.log(count+' '+data)
+//    body = body+data;
+    body = data;
+//    console.log(count+' '+data)
     count = count+1;
   });
   req.on('end', function(){
     console.log('end');
     console.log(count);
+    console.og(body);
   });
-  console.dir(req.body);
 });
 
 //通过开发者验证
