@@ -32,7 +32,8 @@ app.get('/', routes.index);
 app.post('/weixintest', function(req, res){
   console.log('i\'m here~~~')
   console.log(req.body);
-  console.log(req)
+  console.log(req.data);
+  console.log(req.body.data);
   res.send('');
 });
 
