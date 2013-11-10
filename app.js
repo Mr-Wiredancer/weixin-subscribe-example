@@ -31,9 +31,7 @@ app.get('/', routes.index);
 
 app.post('/weixintest', function(req, res){
   console.log('i\'m here~~~')
-  for (var key in req.body){
-    console.log(key+' '+req.body.key)
-  }
+  console.log(Object.keys(req.body));
   res.send('');
 });
 
