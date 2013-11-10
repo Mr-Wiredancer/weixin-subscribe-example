@@ -28,19 +28,24 @@ if ('development' == app.get('env')) {
 }
 
 app.get('/', routes.index);
+
+app.post('/weixintest', function(req, res){
+  console.log(req.body);
+  res.send('');
+});
+
+//通过开发者验证
 app.get('/weixintest', function(req, res){
-  console.log(req.query)
-  arr = ['dxhackers', req.query.timestamp, req.query.nonce];
+  var arr = ['dxhackers', req.query.timestamp, req.query.nonce];
   arr.sort();
-  console.log(arr.join(''));
+
   var result = crypto.createHash('sha1').update(arr.join('')).digest('hex');
-  console.log(result+'');
-  console.log( req.query.signature);
+
   if (result === req.query.signature){
     res.send(req.query.echostr);
   }
-
 });
+
 app.get('/users', user.list);
 
 http.createServer(app).listen(app.get('port'), function(){
