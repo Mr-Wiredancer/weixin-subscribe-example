@@ -37,7 +37,7 @@ app.post('/weixintest', function(req, res){
   req.on('end', function(){
     var body = Buffer.concat(chunks).toString();
     console.log(body)
-  }
+  });
 });
 
 //通过开发者验证
