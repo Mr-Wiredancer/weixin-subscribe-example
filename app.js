@@ -30,7 +30,9 @@ if ('development' == app.get('env')) {
 app.get('/', routes.index);
 
 app.post('/weixintest', function(req, res){
+  console.log('i\'m here~~~')
   console.log(req.body);
+  console.log(req)
   res.send('');
 });
 
