@@ -29,11 +29,13 @@ if ('development' == app.get('env')) {
 
 app.get('/', routes.index);
 app.get('/weixintest', function(req, res){
-  arr = [req.query.signature, req.query.timestamp, req.query.nonce];
+  arr = ['dxhackers', req.query.timestamp, req.query.nonce];
   arr.sort();
-  var shasum = crypto.createHash('sha1');
-  console.log(req.query)
-  res.send(shasum.digest(arr[0]+arr[1]+arr[2]))
+  var result = crypto.createHash('sha1')digest(arr[0]+arr[1]+arr[2]));
+  console.log(result, req.query.signature);
+  if (result === req.query.signature){
+    res.send(req.query.echostr);
+  }
 
 });
 app.get('/users', user.list);
