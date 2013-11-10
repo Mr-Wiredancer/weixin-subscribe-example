@@ -37,6 +37,7 @@ app.post('/weixintest', function(req, res){
   req.on('end', function(){
     console.log(body)
   });
+  console.dir(req.body);
 });
 
 //通过开发者验证
