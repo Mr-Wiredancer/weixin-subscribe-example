@@ -1,4 +1,4 @@
-
+var crypto = require('crypto')
 /**
  * Module dependencies.
  */
@@ -28,7 +28,14 @@ if ('development' == app.get('env')) {
 }
 
 app.get('/', routes.index);
-app.get('/weixintest', routes.test)
+app.get('/weixintest', function(req, res){
+  arr = [req.query.signature, req.query.timestamp, req.query.nonce];
+  arr.sort();
+  var shasum = crypto.createHash('sha1');
+  console.log(req.query)
+  res.send(shasum.digest(arr[0]+arr[1]+arr[2]))
+
+});
 app.get('/users', user.list);
 
 http.createServer(app).listen(app.get('port'), function(){
