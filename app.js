@@ -41,7 +41,7 @@ app.post('/weixintest', function(req, res){
   req.on('end', function(){
     console.log('end');
     console.log(count);
-    console.og(body);
+    console.log(body);
   });
 });
 
