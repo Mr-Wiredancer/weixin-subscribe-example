@@ -30,12 +30,11 @@ if ('development' == app.get('env')) {
 app.get('/', routes.index);
 
 app.post('/weixintest', function(req, res){
-  var chunks = [];
+  var body = ''
   req.on('data', function (data) {
-    chunks.push(data);
+    body = body+data;
   });
   req.on('end', function(){
-    var body = Buffer.concat(chunks).toString();
     console.log(body)
   });
 });
