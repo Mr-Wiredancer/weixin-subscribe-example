@@ -30,9 +30,14 @@ if ('development' == app.get('env')) {
 app.get('/', routes.index);
 
 app.post('/weixintest', function(req, res){
-  console.log('i\'m here~~~')
-  console.log(Object.keys(req.body));
-  res.send('');
+  var chunks = [];
+  req.on('data', function (data) {
+    chunks.push(data);
+  });
+  req.on('end', function(){
+    var body = Buffer.concat(chunks).toString();
+    console.log(body)
+  }
 });
 
 //通过开发者验证
