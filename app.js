@@ -30,12 +30,15 @@ if ('development' == app.get('env')) {
 app.get('/', routes.index);
 
 app.post('/weixintest', function(req, res){
-  var body = ''
+  var body = '';
+  var count = 0;
   req.on('data', function (data) {
     body = body+data;
+    console.log(count+' '+data)
+    count = count+1;
   });
   req.on('end', function(){
-    console.log(body)
+    console.log('end');
   });
   console.dir(req.body);
 });
