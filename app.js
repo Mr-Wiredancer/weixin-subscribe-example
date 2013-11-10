@@ -31,7 +31,7 @@ app.get('/', routes.index);
 app.get('/weixintest', function(req, res){
   arr = ['dxhackers', req.query.timestamp, req.query.nonce];
   arr.sort();
-  var result = crypto.createHash('sha1')digest(arr[0]+arr[1]+arr[2]));
+  var result = crypto.createHash('sha1').digest(arr[0]+arr[1]+arr[2]));
   console.log(result, req.query.signature);
   if (result === req.query.signature){
     res.send(req.query.echostr);
