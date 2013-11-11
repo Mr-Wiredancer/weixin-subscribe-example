@@ -49,8 +49,8 @@ app.post('/weixintest', function(req, res){
       xml.ToUserName = xml.FromUserName;
       xml.FromUserName = temp;
       xml.Content = 'hello back';
+      console.log(xml);
       var result = new Js2Xml('xml', xml);
-      console.log( result.toString() );
       res.send( result.toString() );
     });
   });
