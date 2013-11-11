@@ -9,7 +9,7 @@ var express = require('express')
   , path = require('path')
   , crypto = require('crypto')
   , xml2js = require('xml2js')
-  , Js2Xml = require('js2xml')
+  , Js2Xml = require('js2xml').Js2Xml
   , parseString = xml2js.parseString;
 
 var app = express();
