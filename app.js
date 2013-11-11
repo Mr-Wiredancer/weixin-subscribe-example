@@ -36,6 +36,7 @@ app.post('/weixintest', function(req, res){
   var body = '';
   var count = 0;
   console.log(req.read());
+
 //  req.on('data', function (data) {
 ////    body = body+data;
 //    body = data; 
