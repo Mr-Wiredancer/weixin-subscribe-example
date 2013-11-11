@@ -45,10 +45,13 @@ app.post('/weixintest', function(req, res){
     parseString(body, function(err, result){
       var xml = result.xml;
       
-      var temp = xml.ToUserName;
-      xml.ToUserName = xml.FromUserName;
+      var temp = xml.ToUserName[0];
+      xml.ToUserName = xml.FromUserName[0];
       xml.FromUserName = temp;
       xml.Content = 'hello back';
+      xml.CreateTime = xml.CreateTime[0];
+      xml.MsgType = xml.MsgType[0];
+      delete xml.MsgId;
       console.log(xml);
       var result = new Js2Xml('xml', xml);
       res.send( result.toString() );
