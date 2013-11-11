@@ -1,4 +1,3 @@
-var crypto = require('crypto')
 /**
  * Module dependencies.
  */
@@ -7,7 +6,9 @@ var express = require('express')
   , routes = require('./routes')
   , user = require('./routes/user')
   , http = require('http')
-  , path = require('path');
+  , path = require('path')
+  , crypto = require('crypto')
+  , parseString = require('xml2js').parseString;
 
 var app = express();
 
@@ -39,9 +40,9 @@ app.post('/weixintest', function(req, res){
     count = count+1;
   });
   req.on('end', function(){
-    console.log('end');
-    console.log(count);
-    console.log(''+body);
+    parseString(body, function(err, result){
+      console.dir(result);
+    });
   });
 });
 
