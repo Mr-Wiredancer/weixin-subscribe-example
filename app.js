@@ -44,15 +44,14 @@ app.post('/weixintest', function(req, res){
   req.on('end', function(){
     parseString(body, function(err, result){
       var xml = result.xml;
-      console.log('to user: '+ xml.ToUserName);
-      console.log('from user: '+xml.FromUserName);
-      console.log('content: '+xml.Content );
       
       var temp = xml.ToUserName;
       xml.ToUserName = xml.FromUserName;
       xml.FromUserName = temp;
       xml.Content = 'hello back';
-      res.send( new Js2Xml(xml).toString() );
+      result = new Js2Xml(xml).toString();
+      console.log( result );
+      res.send( result );
     });
   });
 });
