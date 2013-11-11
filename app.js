@@ -9,8 +9,8 @@ var express = require('express')
   , path = require('path')
   , crypto = require('crypto')
   , xml2js = require('xml2js')
-  , parseString = xml2js.parseString
-  , Builder = xml2js.Builder;
+  , Js2Xml = require('js2xml')
+  , parseString = xml2js.parseString;
 
 var app = express();
 
@@ -52,8 +52,7 @@ app.post('/weixintest', function(req, res){
       xml.ToUserName = xml.FromUserName;
       xml.FromUserName = temp;
       xml.Content = 'hello back';
-      var builder = new Builder();
-      res.send(builder.buildObject(xml));
+      res.send( new Js2Xml(xml).toString() );
     });
   });
 });
