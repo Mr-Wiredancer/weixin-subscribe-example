@@ -35,28 +35,29 @@ app.get('/', routes.index);
 app.post('/weixintest', function(req, res){
   var body = '';
   var count = 0;
-  req.on('data', function (data) {
-//    body = body+data;
-    body = data;
-//    console.log(count+' '+data)
-    count = count+1;
-  });
-  req.on('end', function(){
-    parseString(body, function(err, result){
-      var xml = result.xml;
-      
-      var temp = xml.ToUserName[0];
-      xml.ToUserName = xml.FromUserName[0];
-      xml.FromUserName = temp;
-      xml.Content = 'hello back';
-      xml.CreateTime = xml.CreateTime[0];
-      xml.MsgType = xml.MsgType[0];
-      delete xml.MsgId;
-      console.log(xml);
-      var result = new Js2Xml('xml', xml);
-      res.send( result.toString() );
-    });
-  });
+  console.log(req.read());
+//  req.on('data', function (data) {
+////    body = body+data;
+//    body = data; 
+////    console.log(count+' '+data)
+//    count = count+1;
+//  });
+//  req.on('end', function(){
+//    parseString(body, function(err, result){
+//      var xml = result.xml;
+//      
+//      var temp = xml.ToUserName[0];
+//      xml.ToUserName = xml.FromUserName[0];
+//      xml.FromUserName = temp;
+//      xml.Content = 'hello back';
+//      xml.CreateTime = xml.CreateTime[0];
+//      xml.MsgType = xml.MsgType[0];
+//      delete xml.MsgId;
+//      console.log(xml);
+//      var result = new Js2Xml('xml', xml);
+//      res.send( result.toString() );
+//    });
+//  });
 });
 
 //通过开发者验证
