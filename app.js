@@ -33,10 +33,17 @@ if ('development' == app.get('env')) {
 app.get('/', routes.index);
 
 app.post('/weixintest', function(req, res){
+  // if not valid, return
+  if (!isValidWeixinRequest(req.query.signature, req.query.timestamp, req.query.nonce)){
+    return;
+  }
+
   var body = '';
+
   req.on('data', function (data) {
     body = body+data;
   });
+
   req.on('end', function(){
     parseString(body, function(err, result){
       var xml = result.xml;
@@ -44,7 +51,7 @@ app.post('/weixintest', function(req, res){
       var temp = xml.ToUserName[0];
       xml.ToUserName = xml.FromUserName[0];
       xml.FromUserName = temp;
-      xml.Content = 'hello back';
+      xml.Content = 'hello back'; // for now, naively return a message of "hello back"
       xml.CreateTime = xml.CreateTime[0];
       xml.MsgType = xml.MsgType[0];
       delete xml.MsgId;
@@ -55,14 +62,17 @@ app.post('/weixintest', function(req, res){
   });
 });
 
-//通过开发者验证
-app.get('/weixintest', function(req, res){
-  var arr = ['dxhackers', req.query.timestamp, req.query.nonce];
+//开发者验证流程详见微信开放平台文档
+var isValidWeixinRequest = function(signature, timestamp, nonce){
+  var arr = ['dxhackers', timestamp, nonce];
   arr.sort();
 
-  var result = crypto.createHash('sha1').update(arr.join('')).digest('hex');
+  return crypto.createHash('sha1').update(arr.join('')).digest('hex') === signature;
+}
 
-  if (result === req.query.signature){
+//通过开发者验证
+app.get('/weixintest', function(req, res){
+  if ( isValidWeixinRequest(req.query.signature, req.query.timestamp, req.query.nonce)){
     res.send(req.query.echostr);
   }
 });
