@@ -41,7 +41,10 @@ app.post('/weixintest', function(req, res){
   });
   req.on('end', function(){
     parseString(body, function(err, result){
-      console.dir(result);
+      var xml = result.xml;
+      console.log('to user: '+ xml.ToUserName);
+      console.log('from user: '+xml.FromUserName);
+      console.log('content: '+xml.Content );
     });
   });
 });
